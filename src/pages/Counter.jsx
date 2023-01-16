@@ -2,20 +2,30 @@ import { useState, React } from 'react';
 import Button from '../components/Ul/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '../components/Ul/Input/Input';
+import { amount, decrement, increment, reset } from '../app/Reducers/actions';
 
 const Counter = () => {
   const dispatch = useDispatch();
   const counter = useSelector(state => state.counter.counter);
   const [newCounter, setNewCounter] = useState(0);
-
   //console.log(useSelector(state => state));
   return (
     <section className="section counter">
       <div className="container text-center">
         <div>
           <h1>{counter}</h1>
-          <Button onClick={() => dispatch({ type: '+' })}>+</Button>
-          <Button onClick={() => dispatch({ type: '-' })}>-</Button>
+          <Button
+            className="btn btn-secondary"
+            onClick={() => dispatch(increment())}
+          >
+            +
+          </Button>
+          <Button
+            className="btn btn-secondary"
+            onClick={() => dispatch(decrement())}
+          >
+            -
+          </Button>
         </div>
 
         <Input
@@ -25,15 +35,20 @@ const Counter = () => {
           placeholder="Number"
         />
 
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div
+          style={{ display: 'flex', alignItems: 'center' }}
+          className="btn-list"
+        >
           <Button
-            onClick={() => dispatch({ type: 'amount', payload: newCounter })}
+            onClick={() => dispatch(amount(newCounter))}
+            className="btn btn-success"
           >
             Add Amount
           </Button>
           <Button
+            className="btn btn-success"
             onClick={() => {
-              dispatch({ type: 'reset' });
+              dispatch(reset());
               setNewCounter(0);
             }}
           >

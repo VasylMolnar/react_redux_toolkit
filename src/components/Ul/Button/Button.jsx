@@ -3,7 +3,7 @@ import './index.css';
 
 const Button = ({ children, ...props }) => {
   return (
-    <button {...props} className="button">
+    <button {...props} type="button">
       {children}
     </button>
   );

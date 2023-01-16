@@ -12,8 +12,25 @@
 
 .counter,
 .about,
+.post,
 .missing {
     flex-grow: 1;
+}
+
+
+.navbar .active {
+    color: red;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.search .input {
+    width: 700px;
 }
 
 .App {
@@ -39,4 +56,12 @@
 
 .container .input {
     margin: 30px 0px;
+}
+
+.post .btn {
+    width: 150px;
+}
+
+.btn-list .btn {
+    height: 60px;
 }
