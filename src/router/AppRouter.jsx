@@ -4,7 +4,7 @@ import Counter from '../pages/Counter';
 import About from '../pages/About';
 import Missing from '../pages/Missing';
 import Header from '../components/Header';
-import store from '../App/index';
+import store from '../app/index';
 import { Provider } from 'react-redux';
 
 const AppRouter = () => {
