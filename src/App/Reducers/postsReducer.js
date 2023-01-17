@@ -1,30 +1,26 @@
+import { DELETE_POST, NEW_POST } from './type';
+
 const initialState = {
-  posts: [
-    {
-      id: 1,
-      title: 'test1',
-      datetime: 'January 04, 2023 2:39:38 PM',
-      body: 'test1',
-    },
-    {
-      id: 2,
-      title: 'test2',
-      datetime: 'January 10, 2023 12:39:38 PM',
-      body: 'test2',
-    },
-    {
-      id: 3,
-      title: 'test3',
-      datetime: 'January 04, 2023 5:9:38 PM',
-      body: 'test4',
-    },
-  ],
+  posts: JSON.parse(localStorage.getItem('listItems')) || [],
 };
 
 const posts = (state = initialState, action) => {
-  //console.log(action);
-  //console.log(state);
+  //console.log(action.payload.currentTarget.elements.title.value); form elements (action newPost)
   switch (action.type) {
+    case DELETE_POST:
+      const post = state.posts.filter(
+        el => el.id.toString() !== action.payload
+      );
+      localStorage.setItem('listItems', JSON.stringify(post));
+      return post;
+
+    case NEW_POST:
+      console.log(state.posts[state.posts.length - 1].id); /////////
+      const id = state.posts[state.posts.length - 1] || 1;
+      console.log('', id);
+      const newPost = [...state.posts, { ...action.payload, id }];
+      localStorage.setItem('listItems', JSON.stringify(newPost));
+      return { posts: newPost };
     default:
       return state;
   }

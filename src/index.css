@@ -13,6 +13,7 @@
 .counter,
 .about,
 .post,
+.newPost,
 .missing {
     flex-grow: 1;
 }
@@ -64,4 +65,27 @@
 
 .btn-list .btn {
     height: 60px;
+}
+
+.newPost form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.newPost label {
+    display: flex;
+    flex-direction: column;
+}
+
+.newPost .input {
+    margin: 10px 0px 30px 0px;
+    width: 500px;
+}
+
+.newPost textarea {
+    margin: 10px 0px 30px 0px;
+    width: 500px;
+    height: 300px;
 }

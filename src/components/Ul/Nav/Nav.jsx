@@ -10,6 +10,9 @@ const Nav = () => {
       <NavLink to="posts" className="navbar-brand">
         Posts
       </NavLink>
+      <NavLink to="newPost" className="navbar-brand">
+        Create posts
+      </NavLink>
       <NavLink to="/about" className="navbar-brand">
         About
       </NavLink>

@@ -1,12 +1,15 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Ul/Button/Button';
+import { deletePost } from '../app/Reducers/actions';
 
 const Post = () => {
+  //const navigate = useNavigate();
   const { id } = useParams();
+  const dispatch = useDispatch();
   const posts = useSelector(state => state.posts.posts);
-  const post = posts.find(post => post.id);
+  const post = posts.find(post => post.id.toString() === id);
 
   return (
     <section className="section post">
@@ -17,21 +20,30 @@ const Post = () => {
           <p className="card-date">{post.datetime}</p>
         </div>
 
-        <Button
-          type="button"
-          className="btn btn-danger"
-          style={{ border: 'none' }}
-        >
-          Delete
-        </Button>
+        <Link to={`/posts`}>
+          {/* or navigate */}
+          <Button
+            type="button"
+            className="btn btn-danger"
+            style={{ border: 'none' }}
+            onClick={() => {
+              dispatch(deletePost(id));
+              //navigate('/posts');
+            }}
+          >
+            Delete
+          </Button>
+        </Link>
 
-        <Button
-          type="button"
-          className="btn btn-warning"
-          style={{ border: 'none' }}
-        >
-          Edit
-        </Button>
+        <Link to={`/posts/edit/${id}`}>
+          <Button
+            type="button"
+            className="btn btn-warning"
+            style={{ border: 'none' }}
+          >
+            Edit
+          </Button>
+        </Link>
       </div>
     </section>
   );
