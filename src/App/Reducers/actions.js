@@ -5,6 +5,7 @@ import {
   AMOUNT,
   DELETE_POST,
   NEW_POST,
+  UPDATE_POST,
 } from './type';
 
 //counter
@@ -31,7 +32,7 @@ export const deletePost = id => {
 
 export const newPost = e => {
   //console.log(action.payload.currentTarget.elements.title.value); form elements
-  const data = Date.now();
+  const data = new Date().toString();
   e.preventDefault();
 
   const newPost = {
@@ -41,4 +42,18 @@ export const newPost = e => {
   };
 
   return { type: NEW_POST, payload: newPost };
+};
+
+export const updatePost = (id, e) => {
+  e.preventDefault();
+  const data = new Date().toString();
+
+  const updatePost = {
+    id: id,
+    datetime: data,
+    title: e.currentTarget.elements.title.value,
+    body: e.currentTarget.elements.body.value,
+  };
+
+  return { type: UPDATE_POST, payload: updatePost };
 };

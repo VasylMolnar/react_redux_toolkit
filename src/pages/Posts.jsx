@@ -1,15 +1,15 @@
-import React from 'react';
+import { useState, React } from 'react';
 import PostCard from '../components/PostCard';
 import Search from '../components/Search';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useSort } from '../hooks/useSort';
 
 const Posts = () => {
-  const dispatch = useDispatch();
+  const [searchValue, setSearchValue] = useState('');
   const posts = useSelector(state => state.posts.posts);
+  const searchResults = useSort(posts, searchValue);
 
-  //console.log(posts);
   if (!posts || !posts.length) {
     return (
       <section className="section post">
@@ -34,8 +34,8 @@ const Posts = () => {
   return (
     <section className="section post">
       <div className="container">
-        <Search />
-        <PostCard posts={posts} />
+        <Search setSearchValue={setSearchValue} />
+        <PostCard posts={searchResults} />
       </div>
     </section>
   );

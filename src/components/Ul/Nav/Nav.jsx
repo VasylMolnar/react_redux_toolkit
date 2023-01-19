@@ -3,7 +3,10 @@ import { NavLink } from 'react-router-dom';
 
 const Nav = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav
+      className="navbar navbar-expand-lg bg-body-tertiary"
+      style={{ padding: '10px' }}
+    >
       <NavLink to="/" className="navbar-brand">
         Counter
       </NavLink>
