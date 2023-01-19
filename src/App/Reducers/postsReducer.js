@@ -1,4 +1,4 @@
-import { DELETE_POST, NEW_POST, UPDATE_POST } from './type';
+import { DELETE_POST, NEW_POST, UPDATE_POST, SORT_POST } from './type';
 const initialState = {
   posts: JSON.parse(localStorage.getItem('listItems')) || [],
 };
@@ -25,9 +25,10 @@ const posts = (state = initialState, action) => {
       const updatePost = state.posts.map(el =>
         el.id.toString() === action.payload.id ? { ...action.payload } : el
       );
-
       localStorage.setItem('listItems', JSON.stringify(updatePost));
       return { posts: updatePost };
+
+    case SORT_POST:
 
     default:
       return state;

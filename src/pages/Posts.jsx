@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import { useSort } from '../hooks/useSort';
 
 const Posts = () => {
-  const [searchValue, setSearchValue] = useState('');
+  //const [searchValue, setSearchValue] = useState('');
   const posts = useSelector(state => state.posts.posts);
-  const searchResults = useSort(posts, searchValue);
+  //const searchResults = useSort(posts, searchValue);
 
   if (!posts || !posts.length) {
     return (
@@ -34,8 +34,8 @@ const Posts = () => {
   return (
     <section className="section post">
       <div className="container">
-        <Search setSearchValue={setSearchValue} />
-        <PostCard posts={searchResults} />
+        <Search />
+        <PostCard posts={posts} />
       </div>
     </section>
   );
