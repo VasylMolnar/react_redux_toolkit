@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom'; //useNavigate
 import Button from '../components/Ul/Button/Button';
 import { deletePost } from '../app/Reducers/actions';
 

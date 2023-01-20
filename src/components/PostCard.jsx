@@ -1,8 +1,10 @@
 import { React } from 'react';
 import { Link } from 'react-router-dom';
+import { Notify } from 'notiflix';
 
 const PostCard = ({ posts }) => {
   if (!posts || !posts.length) {
+    Notify.warning('Posts not found');
     return (
       <section className="section post">
         <h1 className="container  text-warning text-center">Posts not found</h1>

@@ -4,7 +4,7 @@ import Search from '../components/Search';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useSort } from '../hooks/useSort';
-import Notiflix from 'notiflix';
+import { Report } from 'notiflix';
 
 const Posts = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -12,10 +12,11 @@ const Posts = () => {
   const searchResults = useSort(posts, searchValue);
 
   if (!posts || !posts.length) {
+    Report.info('List empty.', 'Please create a new post.');
+
     return (
       <section className="section post">
         <h1 className="container  text-danger text-center">List empty.</h1>
-
         <Link
           to="/NewPost"
           style={{

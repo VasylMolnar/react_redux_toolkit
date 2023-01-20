@@ -14,6 +14,7 @@
 .about,
 .post,
 .newPost,
+.fetchPost,
 .missing {
     flex-grow: 1;
 }

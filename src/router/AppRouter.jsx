@@ -26,10 +26,7 @@ const AppRouter = () => {
           </Route>
 
           <Route path="newPost" element={<NewPost />} />
-
-          <Route path="fetchPosts">
-            <Route index element={<FetchPosts />} />
-          </Route>
+          <Route path="fetchPosts" element={<FetchPosts />} />
 
           <Route path="about" element={<About />} />
           <Route path="*" element={<Missing />} />
