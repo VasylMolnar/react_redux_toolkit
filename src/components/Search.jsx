@@ -3,22 +3,21 @@ import Input from './Ul/Input/Input';
 import Button from './Ul/Button/Button';
 import { debounce } from 'lodash';
 
-const Search = () => {
-  //{ setSearchValue }
+const Search = ({ setSearchValue }) => {
   return (
     <form
       className="search"
       onSubmit={e => {
         e.preventDefault();
         e.currentTarget.reset();
-        //setSearchValue('');
+        setSearchValue('');
       }}
     >
       <Input
         type="text"
         placeholder="Search"
         onChange={debounce(e => {
-          //setSearchValue(e.target.value);
+          setSearchValue(e.target.value);
         }, 300)}
       />
       <Button className="btn btn-primary" type="submit">

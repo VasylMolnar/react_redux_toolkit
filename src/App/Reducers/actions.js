@@ -57,7 +57,3 @@ export const updatePost = (id, e) => {
 
   return { type: UPDATE_POST, payload: updatePost };
 };
-
-export const sortPost = () => {
-  return {};
-};

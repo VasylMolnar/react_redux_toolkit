@@ -2,6 +2,14 @@ import { React } from 'react';
 import { Link } from 'react-router-dom';
 
 const PostCard = ({ posts }) => {
+  if (!posts || !posts.length) {
+    return (
+      <section className="section post">
+        <h1 className="container  text-warning text-center">Posts not found</h1>
+      </section>
+    );
+  }
+
   return posts.map(post => (
     <div className="card" key={post.id} style={{ margin: '10px' }}>
       <Link

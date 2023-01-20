@@ -9,6 +9,7 @@ const EditPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   return (
     <section className="section newPost">
       <div className="container ">

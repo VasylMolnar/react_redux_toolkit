@@ -10,6 +10,7 @@ import Posts from '../pages/Posts';
 import Post from '../pages/Post';
 import NewPost from '../pages/NewPost';
 import EditPost from '../pages/EditPost';
+import FetchPosts from '../pages/FetchPosts';
 
 const AppRouter = () => {
   return (
@@ -25,6 +26,10 @@ const AppRouter = () => {
           </Route>
 
           <Route path="newPost" element={<NewPost />} />
+
+          <Route path="fetchPosts">
+            <Route index element={<FetchPosts />} />
+          </Route>
 
           <Route path="about" element={<About />} />
           <Route path="*" element={<Missing />} />
