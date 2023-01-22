@@ -14,7 +14,7 @@
 .about,
 .post,
 .newPost,
-.fetchPost,
+.fetch-posts,
 .missing {
     flex-grow: 1;
 }
@@ -61,6 +61,10 @@
 }
 
 .post .btn {
+    width: 150px;
+}
+
+.fetch-posts .btn {
     width: 150px;
 }
 

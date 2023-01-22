@@ -14,10 +14,6 @@ const Nav = () => {
         Posts
       </NavLink>
 
-      <NavLink to="fetchPosts" className="navbar-brand">
-        Fetch Posts
-      </NavLink>
-
       <NavLink to="newPost" className="navbar-brand">
         Create posts
       </NavLink>

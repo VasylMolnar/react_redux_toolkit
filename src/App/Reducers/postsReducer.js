@@ -1,12 +1,13 @@
 import { DELETE_POST, NEW_POST, UPDATE_POST } from './type';
 import { Report } from 'notiflix';
-
 const initialState = {
   posts: JSON.parse(localStorage.getItem('listItems')) || [],
+  fetchPosts: [],
 };
 
 const posts = (state = initialState, action) => {
   //console.log(action.payload.currentTarget.elements.title.value); form elements (action newPost)
+
   switch (action.type) {
     case DELETE_POST:
       try {
