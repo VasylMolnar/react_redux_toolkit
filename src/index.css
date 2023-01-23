@@ -19,20 +19,8 @@
     flex-grow: 1;
 }
 
-
 .navbar .active {
     color: red;
-}
-
-.search {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-}
-
-.search .input {
-    width: 700px;
 }
 
 .App {
@@ -47,50 +35,4 @@
     color: white;
     background-color: black;
     padding: 10px;
-}
-
-.counter .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.container .input {
-    margin: 30px 0px;
-}
-
-.post .btn {
-    width: 150px;
-}
-
-.fetch-posts .btn {
-    width: 150px;
-}
-
-.btn-list .btn {
-    height: 60px;
-}
-
-.newPost form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.newPost label {
-    display: flex;
-    flex-direction: column;
-}
-
-.newPost .input {
-    margin: 10px 0px 30px 0px;
-    width: 500px;
-}
-
-.newPost textarea {
-    margin: 10px 0px 30px 0px;
-    width: 500px;
-    height: 300px;
 }
