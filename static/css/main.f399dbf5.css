@@ -1,0 +1,2 @@
+button{border:1px solid #000;height:70px;margin:10px;width:100px}button:hover{background-color:green;transition:background-color .3s linear}*,:after,:before{box-sizing:border-box;margin:0;padding:0}.section{margin:90px 0}.about,.counter,.fetch-posts,.missing,.newPost,.post{flex-grow:1}.navbar .active{color:red}.App{display:flex;flex-direction:column;min-height:100vh}.Footer{background-color:#000;color:#fff;height:100px;padding:10px;width:100%}
+/*# sourceMappingURL=main.f399dbf5.css.map*/
