@@ -8,7 +8,10 @@ const Nav = () => {
       style={{ padding: '10px' }}
     >
       <NavLink to="/" className="navbar-brand">
-        Counter
+        Posts
+      </NavLink>
+      <NavLink to="posts" className="navbar-brand">
+        New Post
       </NavLink>
       <NavLink to="/about" className="navbar-brand">
         About
