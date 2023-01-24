@@ -14,6 +14,7 @@
 .about,
 .posts,
 .newPost,
+.home,
 .missing {
     flex-grow: 1;
 }

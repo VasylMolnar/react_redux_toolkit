@@ -7,10 +7,10 @@ const Nav = () => {
       className="navbar navbar-expand-lg bg-body-tertiary"
       style={{ padding: '10px' }}
     >
-      <NavLink to="/" className="navbar-brand">
+      <NavLink to="posts" className="navbar-brand">
         Posts
       </NavLink>
-      <NavLink to="posts" className="navbar-brand">
+      <NavLink to="newPost" className="navbar-brand">
         New Post
       </NavLink>
       <NavLink to="/about" className="navbar-brand">
