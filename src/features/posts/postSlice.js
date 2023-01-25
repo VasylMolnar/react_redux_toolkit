@@ -71,12 +71,39 @@ const postSlice = createSlice({
       },
     },
 
-    postUpdate: {},
+    postUpdate: {
+      reducer(state, action) {
+        const updateList = state.map(el =>
+          el.id === action.payload.id ? { ...action.payload } : el
+        );
+        localStorage.setItem('posts', JSON.stringify(updateList));
+        return (state = updateList);
+      },
+
+      prepare(title, content, id) {
+        try {
+          Report.success('Post update successfully', '');
+          return {
+            payload: {
+              id,
+              title,
+              content,
+              date: new Date().toISOString(),
+            },
+          };
+        } catch (e) {
+          Report.failure('Error Post not update', `Error: ${e.message}`);
+        }
+      },
+    },
+
+    reactionAdded(state, action) {},
   },
 });
 
 export const selectAllPosts = state => state.posts;
 
-export const { deletePost, postAdded, postUpdate } = postSlice.actions;
+export const { deletePost, postAdded, postUpdate, reactionAdded } =
+  postSlice.actions;
 
 export default postSlice.reducer;

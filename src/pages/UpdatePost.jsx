@@ -2,13 +2,13 @@ import React from 'react';
 import Input from '../components/Ul/Input/Input';
 import Button from '../components/Ul/Button/Button';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { postUpdate } from '../features/posts/postSlice';
 
 const UpdatePost = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   return (
     <section className="section newPost">
       <div className="container ">
@@ -21,7 +21,7 @@ const UpdatePost = () => {
             //or (postSlice.js)
             const title = e.target.title.value;
             const content = e.target.content.value;
-            dispatch(postUpdate(title, content));
+            dispatch(postUpdate(title, content, id));
             navigate('/posts');
           }}
         >

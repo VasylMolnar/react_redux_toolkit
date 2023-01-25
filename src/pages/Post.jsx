@@ -55,7 +55,7 @@ const Post = () => {
             </Button>
           </Link>
 
-          <Link to={'/posts/updatePost'}>
+          <Link to={`/posts/updatePost/${id}`}>
             <Button className="btn btn-warning">Edit</Button>
           </Link>
         </div>
