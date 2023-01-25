@@ -1,11 +1,13 @@
 import React from 'react';
 import { Report } from 'notiflix';
 import { Link, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectAllPosts } from '../features/posts/postSlice';
 import Button from '../components/Ul/Button/Button';
+import { deletePost } from '../features/posts/postSlice';
 
 const Post = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const posts = useSelector(selectAllPosts);
   const post = posts.find(post => post.id === id);
@@ -45,7 +47,12 @@ const Post = () => {
 
         <div style={{ marginTop: '50px' }}>
           <Link to={'/posts'}>
-            <Button className="btn btn-danger">Delete</Button>
+            <Button
+              className="btn btn-danger"
+              onClick={() => dispatch(deletePost(id))}
+            >
+              Delete
+            </Button>
           </Link>
 
           <Link to={'/posts/updatePost'}>

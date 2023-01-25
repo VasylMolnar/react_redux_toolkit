@@ -1,6 +1,8 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
 import { sub } from 'date-fns';
+import { Report } from 'notiflix';
 
+/*
 const initialState = [
   {
     id: '1',
@@ -14,14 +16,67 @@ const initialState = [
     content: 'The more I say slice, the more I want pizza.',
     date: sub(new Date(), { minutes: 5 }).toISOString(),
   },
-];
+];*/
+
+const initialState = JSON.parse(localStorage.getItem('posts')) || [];
 
 const postSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {},
+  reducers: {
+    deletePost: (state, action) => {
+      try {
+        const post = state.filter(el => el.id.toString() !== action.payload);
+        Report.success('Post deleted successfully', '');
+        localStorage.setItem('posts', JSON.stringify(post));
+        return (state = post);
+      } catch (e) {
+        Report.failure('Error Post not deleted', `Error: ${e.message}`);
+      }
+    },
+
+    /*postAdded: (state, action) => {
+      const id = state ? Number(state[state.length - 1].id) + 1 : 0;
+
+      const newPost = {
+        id: id.toString(),
+        title: action.payload.target.elements.title.value,
+        content: action.payload.target.elements.content.value,
+        date: new Date().toISOString(),
+      };
+
+      state.push(newPost);
+    },*/
+    //or
+    postAdded: {
+      reducer(state, action) {
+        state.push(action.payload);
+        localStorage.setItem('posts', JSON.stringify(state));
+      },
+
+      prepare(title, content) {
+        try {
+          Report.success('Post create successfully', '');
+          return {
+            payload: {
+              id: nanoid(), //random id
+              title,
+              content,
+              date: new Date().toISOString(),
+            },
+          };
+        } catch (e) {
+          Report.failure('Error Post not create', `Error: ${e.message}`);
+        }
+      },
+    },
+
+    postUpdate: {},
+  },
 });
 
 export const selectAllPosts = state => state.posts;
+
+export const { deletePost, postAdded, postUpdate } = postSlice.actions;
 
 export default postSlice.reducer;
