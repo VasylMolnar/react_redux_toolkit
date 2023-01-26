@@ -15,7 +15,7 @@ const Posts = () => {
     <section className="section posts">
       <div className="container">
         <Search setSearchValue={setSearchValue} />
-        <PostCard items={sortPosts} />
+        <PostCard items={sortPosts.reverse()} />
       </div>
     </section>
   );

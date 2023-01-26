@@ -1,13 +1,17 @@
-import React from 'react';
+import { useState, React } from 'react';
 import Input from '../components/Ul/Input/Input';
 import Button from '../components/Ul/Button/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { postAdded } from '../features/posts/postSlice';
+import { selectAllUsers } from '../features/users/userSlice';
 
 const NewPost = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [userId, setUserId] = useState('');
+
+  const users = useSelector(selectAllUsers);
 
   return (
     <section className="section newPost">
@@ -21,11 +25,28 @@ const NewPost = () => {
             //or (postSlice.js)
             const title = e.target.title.value;
             const content = e.target.content.value;
-            dispatch(postAdded(title, content));
+            dispatch(postAdded(title, content, userId));
             navigate('/posts');
           }}
         >
           <h3>New Post</h3>
+
+          <label htmlFor="postAuthor" style={{ width: '500px' }}>
+            Author:
+            <select
+              id="postAuthor"
+              value={userId}
+              onChange={e => setUserId(e.target.value)}
+            >
+              <option value=""></option>
+              {users.map(user => (
+                <option key={user.id} value={user.id}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
+          </label>
+
           <label>
             Title:
             <Input type="text" name="title" placeholder="title" required />

@@ -54,7 +54,7 @@ const postSlice = createSlice({
         localStorage.setItem('posts', JSON.stringify(state));
       },
 
-      prepare(title, content) {
+      prepare(title, content, userId) {
         try {
           Report.success('Post create successfully', '');
           return {
@@ -62,7 +62,15 @@ const postSlice = createSlice({
               id: nanoid(), //random id
               title,
               content,
-              date: new Date().toISOString(),
+              date: sub(new Date(), { minutes: 10 }).toISOString(),
+              userId,
+              reactions: {
+                thumbsUp: 0,
+                wow: 0,
+                heart: 0,
+                rocket: 0,
+                coffee: 0,
+              },
             },
           };
         } catch (e) {
@@ -74,13 +82,13 @@ const postSlice = createSlice({
     postUpdate: {
       reducer(state, action) {
         const updateList = state.map(el =>
-          el.id === action.payload.id ? { ...action.payload } : el
+          el.id === action.payload.id ? { ...el, ...action.payload } : el
         );
         localStorage.setItem('posts', JSON.stringify(updateList));
         return (state = updateList);
       },
 
-      prepare(title, content, id) {
+      prepare(title, content, id, userId) {
         try {
           Report.success('Post update successfully', '');
           return {
@@ -88,6 +96,7 @@ const postSlice = createSlice({
               id,
               title,
               content,
+              userId,
               date: new Date().toISOString(),
             },
           };
@@ -96,8 +105,17 @@ const postSlice = createSlice({
         }
       },
     },
+    //or postUpdate can work as reactionAdded
+    reactionAdded(state, action) {
+      const { postId, reaction } = action.payload;
+      const existingPost = state.find(post => post.id === postId);
 
-    reactionAdded(state, action) {},
+      if (existingPost) {
+        existingPost.reactions[reaction]++; //is work
+      }
+
+      localStorage.setItem('posts', JSON.stringify(state));
+    },
   },
 });
 
