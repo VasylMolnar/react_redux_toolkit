@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectAllPosts } from '../features/posts/postSlice';
 import Button from '../components/Ul/Button/Button';
 import { deletePost } from '../features/posts/postSlice';
+import TimeAgo from '../components/TimeAgo';
 
 const Post = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,9 @@ const Post = () => {
       >
         <h3 className="card-title">{post.title}</h3>
         <p className="card-body">{post.content}</p>
-        <p className="card-date">{post.date}</p>
+        <p className="card-date">
+          <TimeAgo timestamp={post.date} />
+        </p>
 
         <div style={{ marginTop: '50px' }}>
           <Link to={'/posts'}>

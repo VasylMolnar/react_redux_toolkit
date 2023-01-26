@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { Notify } from 'notiflix';
 import ReactionButtons from './ReactionButtons';
 import PostAuthor from './PostAuthor';
+import TimeAgo from './TimeAgo';
 
-const PostCard = ({ items }) => {
-  if (!items || !items.length) {
+const PostCard = ({ posts }) => {
+  if (!posts || !posts.length) {
     Notify.warning('List is empty.');
     return (
       <section className="section post">
@@ -14,26 +15,28 @@ const PostCard = ({ items }) => {
     );
   }
 
-  return items.map(item => (
+  return posts.map(post => (
     <div
       className="card"
-      key={item.id}
+      key={post.id}
       style={{ margin: '10px', cursor: 'pointer' }}
     >
       <Link
-        to={`/posts/${item.id}`}
+        to={`/posts/${post.id}`}
         className="card-body"
         style={{ textDecoration: 'none' }}
       >
-        <h3 className="card-title">{item.title}</h3>
+        <h3 className="card-title">{post.title}</h3>
         <p className="card-name">
-          <PostAuthor userId={item.userId} />
+          <PostAuthor userId={post.userId} />
         </p>
-        <p className="card-body">{item.content}</p>
-        <p className="card-date">{item.date}</p>
+        <p className="card-body">{post.content}</p>
+        <p className="card-date">
+          <TimeAgo timestamp={post.date} />
+        </p>
       </Link>
       <div className="button_list">
-        <ReactionButtons reactions={item.reactions} id={item.id} />
+        <ReactionButtons reactions={post.reactions} id={post.id} />
       </div>
     </div>
   ));
