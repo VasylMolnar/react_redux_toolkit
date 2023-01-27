@@ -9,9 +9,9 @@ import UpdatePost from '../pages/UpdatePost';
 import { Provider } from 'react-redux';
 import { store } from '../app/store';
 import Home from '../pages/Home';
-import { fetchItems } from '../hooks/fetchItems';
+import { fetchUsers } from '../features/users/userSlice';
 
-store.dispatch(fetchItems('users'));
+store.dispatch(fetchUsers('users'));
 
 const AppRouter = () => {
   return (

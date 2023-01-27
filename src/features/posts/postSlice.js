@@ -1,7 +1,8 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
 import { sub } from 'date-fns';
 import { Report } from 'notiflix';
-
+import axios from 'axios';
+const baseURL = 'http://localhost:1234/';
 /*
 const initialState = [
   {
@@ -17,8 +18,18 @@ const initialState = [
     date: sub(new Date(), { minutes: 5 }).toISOString(),
   },
 ];*/
+//const initialState = JSON.parse(localStorage.getItem('posts')) || [];
 
-const initialState = JSON.parse(localStorage.getItem('posts')) || [];
+const initialState = {
+  posts: [],
+  status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
+  fetchError: null,
+};
+
+export const fetchPosts = createAsyncThunk('posts/fetchItems', async url => {
+  const response = await axios.get(`${baseURL}${url}`);
+  return response.data;
+});
 
 const postSlice = createSlice({
   name: 'posts',
@@ -117,9 +128,25 @@ const postSlice = createSlice({
       localStorage.setItem('posts', JSON.stringify(state));
     },
   },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchPosts.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.posts = action.payload;
+      })
+      .addCase(fetchPosts.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
 });
 
-export const selectAllPosts = state => state.posts;
+export const selectAllPosts = state => state.posts.posts;
+export const postStatus = state => state.posts.status;
+export const errorMessage = state => state.posts.error;
 
 export const { deletePost, postAdded, postUpdate, reactionAdded } =
   postSlice.actions;
