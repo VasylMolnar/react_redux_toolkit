@@ -11,7 +11,7 @@ const Post = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const posts = useSelector(selectAllPosts);
-  const post = posts.find(post => post.id === id);
+  const post = posts.find(post => post.id.toString() === id);
 
   if (!post) {
     Report.warning('Post not found', '');

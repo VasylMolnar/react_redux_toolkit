@@ -25,7 +25,8 @@ const NewPost = () => {
             //or (postSlice.js)
             const title = e.target.title.value;
             const content = e.target.content.value;
-            dispatch(postAdded(title, content, userId));
+            dispatch(postAdded({ title, content, userId }));
+            dispatch();
             navigate('/posts');
           }}
         >

@@ -1,8 +1,8 @@
 import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
 import { sub } from 'date-fns';
 import { Report } from 'notiflix';
-import axios from 'axios';
-const baseURL = 'http://localhost:1234/';
+import { fetchItems } from '../../hooks/fetchItem';
+import { fetchCRUD } from '../../hooks/fetchCRUD';
 /*
 const initialState = [
   {
@@ -27,9 +27,16 @@ const initialState = {
 };
 
 export const fetchPosts = createAsyncThunk('posts/fetchItems', async url => {
-  const response = await axios.get(`${baseURL}${url}`);
-  return response.data;
+  return await fetchItems(url);
 });
+
+export const apiRequest = createAsyncThunk(
+  'posts/apiRequest',
+  async options => {
+    console.log(options);
+    return await fetchCRUD(options);
+  }
+);
 
 const postSlice = createSlice({
   name: 'posts',
@@ -46,48 +53,25 @@ const postSlice = createSlice({
       }
     },
 
-    /*postAdded: (state, action) => {
-      const id = state ? Number(state[state.length - 1].id) + 1 : 0;
-
+    postAdded: (state, action) => {
       const newPost = {
-        id: id.toString(),
-        title: action.payload.target.elements.title.value,
-        content: action.payload.target.elements.content.value,
+        id: nanoid,
+        userId: action.payload.userId,
+        title: action.payload.title,
+        content: action.payload.content,
         date: new Date().toISOString(),
       };
 
-      state.push(newPost);
-    },*/
-    //or
-    postAdded: {
-      reducer(state, action) {
-        state.push(action.payload);
-        localStorage.setItem('posts', JSON.stringify(state));
-      },
+      const option = {
+        url: '/posts',
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newPost),
+      };
 
-      prepare(title, content, userId) {
-        try {
-          Report.success('Post create successfully', '');
-          return {
-            payload: {
-              id: nanoid(), //random id
-              title,
-              content,
-              date: sub(new Date(), { minutes: 10 }).toISOString(),
-              userId,
-              reactions: {
-                thumbsUp: 0,
-                wow: 0,
-                heart: 0,
-                rocket: 0,
-                coffee: 0,
-              },
-            },
-          };
-        } catch (e) {
-          Report.failure('Error Post not create', `Error: ${e.message}`);
-        }
-      },
+      state.apiRequest(option);
     },
 
     postUpdate: {

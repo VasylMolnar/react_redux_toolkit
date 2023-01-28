@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-const baseURL = 'http://localhost:1234/';
+import { fetchItems } from '../../hooks/fetchItem';
 /*
 const initialState = [
   { id: '0', name: 'User 1' },
@@ -11,8 +10,7 @@ const initialState = [
 let initialState = [];
 
 export const fetchUsers = createAsyncThunk('users/fetchItems', async url => {
-  const response = await axios.get(`${baseURL}${url}`);
-  return response.data;
+  return await fetchItems(url);
 });
 
 const usersSlice = createSlice({
