@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAllPosts } from '../features/posts/postSlice';
 import Button from '../components/Ul/Button/Button';
-import { deletePost } from '../features/posts/postSlice';
+import { apiRequest } from '../features/posts/postSlice';
 import TimeAgo from '../components/TimeAgo';
 
 const Post = () => {
@@ -52,7 +52,18 @@ const Post = () => {
           <Link to={'/posts'}>
             <Button
               className="btn btn-danger"
-              onClick={() => dispatch(deletePost(id))}
+              onClick={() =>
+                dispatch(
+                  apiRequest({
+                    url: `/posts/${id}`,
+                    method: 'delete',
+                    name: 'delete',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                  })
+                )
+              }
             >
               Delete
             </Button>

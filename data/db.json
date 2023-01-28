@@ -29,27 +29,13 @@
       }
     },
     {
-      "id": 3,
-      "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-      "content": "hey there!",
-      "userId": 1,
-      "date": "2022-05-02T20:41:05.437Z",
+      "id": "TIfWyZutZWsA4glGU4kLY",
+      "userId": 3,
+      "title": "asd",
+      "content": "asd",
+      "date": "2023-01-28T14:40:51.254Z",
       "reactions": {
-        "thumbsUp": 15,
-        "wow": 30,
-        "heart": 0,
-        "rocket": 20,
-        "coffee": 0
-      }
-    },
-    {
-      "id": 5,
-      "title": "nesciunt quas odio",
-      "content": "Hello there!",
-      "userId": 1,
-      "date": "2022-04-14T17:46:43.450Z",
-      "reactions": {
-        "thumbsUp": 5,
+        "thumbsUp": 0,
         "wow": 0,
         "heart": 0,
         "rocket": 0,

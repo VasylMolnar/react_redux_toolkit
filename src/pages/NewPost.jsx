@@ -1,17 +1,50 @@
 import { useState, React } from 'react';
 import Input from '../components/Ul/Input/Input';
 import Button from '../components/Ul/Button/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { postAdded } from '../features/posts/postSlice';
 import { selectAllUsers } from '../features/users/userSlice';
+import { apiRequest } from '../features/posts/postSlice';
+import { nanoid } from '@reduxjs/toolkit';
 
 const NewPost = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [userId, setUserId] = useState('');
+  const navigate = useNavigate();
+  const [userId, setUserId] = useState();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   const users = useSelector(selectAllUsers);
+
+  const createNewPost = () => {
+    const newPost = {
+      id: nanoid(),
+      userId,
+      title,
+      content,
+      date: new Date().toISOString(),
+      reactions: {
+        thumbsUp: 0,
+        wow: 0,
+        heart: 0,
+        rocket: 0,
+        coffee: 0,
+      },
+    };
+
+    const option = {
+      url: '/posts',
+      method: 'post',
+      name: 'create',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newPost),
+    };
+
+    dispatch(apiRequest(option));
+    navigate('/posts');
+  };
 
   return (
     <section className="section newPost">
@@ -20,14 +53,7 @@ const NewPost = () => {
           className="form"
           onSubmit={e => {
             e.preventDefault();
-
-            //dispatch(postAdded(e));
-            //or (postSlice.js)
-            const title = e.target.title.value;
-            const content = e.target.content.value;
-            dispatch(postAdded({ title, content, userId }));
-            dispatch();
-            navigate('/posts');
+            createNewPost();
           }}
         >
           <h3>New Post</h3>
@@ -37,7 +63,7 @@ const NewPost = () => {
             <select
               id="postAuthor"
               value={userId}
-              onChange={e => setUserId(e.target.value)}
+              onChange={e => setUserId(Number(e.target.value))}
             >
               <option value=""></option>
               {users.map(user => (
@@ -50,12 +76,19 @@ const NewPost = () => {
 
           <label>
             Title:
-            <Input type="text" name="title" placeholder="title" required />
+            <Input
+              onChange={e => setTitle(e.target.value)}
+              type="text"
+              name="title"
+              placeholder="title"
+              required
+            />
           </label>
 
           <label>
             Content:
             <textarea
+              onChange={e => setContent(e.target.value)}
               type="text"
               name="content"
               placeholder="content"
