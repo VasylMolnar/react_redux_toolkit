@@ -60,6 +60,9 @@ const postSlice = createSlice({
   },
 });
 
+export const { reactionAdded } = postSlice.actions;
+export default postSlice.reducer;
+
 export const selectAllPosts = state => state.posts.posts;
 export const postStatus = state => state.posts.status;
 export const errorMessage = state => state.posts.error;
@@ -73,6 +76,3 @@ export const selectPostById = (state, postId) => {
   }
   return post;
 };
-
-export const { reactionAdded } = postSlice.actions;
-export default postSlice.reducer;

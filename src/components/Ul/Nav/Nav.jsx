@@ -13,6 +13,9 @@ const Nav = () => {
       <NavLink to="newPost" className="navbar-brand">
         New Post
       </NavLink>
+      <NavLink to="users" className="navbar-brand">
+        Users
+      </NavLink>
       <NavLink to="/about" className="navbar-brand">
         About
       </NavLink>

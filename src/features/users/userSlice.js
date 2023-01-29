@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchItems } from '../../hooks/fetchItem';
+import { Report } from 'notiflix';
 /*
 const initialState = [
   { id: '0', name: 'User 1' },
@@ -26,6 +27,16 @@ const usersSlice = createSlice({
 });
 
 export const selectAllUsers = state => state.users;
+export const selectUserById = (state, id) => {
+  const user = state.users.find(user => user.id === id);
+
+  if (!user) {
+    Report.failure('User not found', '');
+    return [];
+  }
+
+  return user;
+};
 
 export default usersSlice.reducer;
 
