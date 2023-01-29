@@ -15,25 +15,11 @@
   ],
   "posts": [
     {
-      "id": 2,
-      "title": "qui est esse",
-      "content": "hey there",
-      "userId": 1,
-      "date": "2022-04-13T23:02:19.248Z",
-      "reactions": {
-        "thumbsUp": 5,
-        "wow": 0,
-        "heart": 10,
-        "rocket": 0,
-        "coffee": 3
-      }
-    },
-    {
-      "id": "TIfWyZutZWsA4glGU4kLY",
-      "userId": 3,
+      "id": "WgFnNovBL8qU5M0Ocj6XR",
+      "userId": 2,
       "title": "asd",
-      "content": "asd",
-      "date": "2023-01-28T14:40:51.254Z",
+      "content": "asd123",
+      "date": "2023-01-29T07:26:40.566Z",
       "reactions": {
         "thumbsUp": 0,
         "wow": 0,
