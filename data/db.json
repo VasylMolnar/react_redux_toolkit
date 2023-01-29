@@ -13,20 +13,5 @@
       "name": "Clementine Bauch"
     }
   ],
-  "posts": [
-    {
-      "id": "WgFnNovBL8qU5M0Ocj6XR",
-      "userId": 2,
-      "title": "asd",
-      "content": "asd123",
-      "date": "2023-01-29T07:26:40.566Z",
-      "reactions": {
-        "thumbsUp": 0,
-        "wow": 0,
-        "heart": 0,
-        "rocket": 0,
-        "coffee": 0
-      }
-    }
-  ]
+  "posts": []
 }

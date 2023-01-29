@@ -1,0 +1,17 @@
+export const selectPostById = (state, postId) => { // postSlice.js
+  return state.posts.posts.find(post => post.id === postId);
+};
+
+
+Post.jsx and UpdatePost.jsx
+
+    before
+
+    const posts = useSelector(selectAllPosts);
+    const post = posts.find(post => post.id.toString() === id);
+
+    after
+
+    const post = useSelector(state => selectPostById(state, id));
+
+

@@ -2,16 +2,16 @@ import React from 'react';
 import { Report } from 'notiflix';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllPosts } from '../features/posts/postSlice';
 import Button from '../components/Ul/Button/Button';
 import { apiRequest } from '../features/posts/postSlice';
 import TimeAgo from '../components/TimeAgo';
+import { selectPostById } from '../features/posts/postSlice';
 
 const Post = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const posts = useSelector(selectAllPosts);
-  const post = posts.find(post => post.id.toString() === id);
+
+  const post = useSelector(state => selectPostById(state, id));
 
   if (!post) {
     Report.warning('Post not found', '');

@@ -3,7 +3,7 @@ import Input from '../components/Ul/Input/Input';
 import Button from '../components/Ul/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { apiRequest } from '../features/posts/postSlice';
+import { apiRequest, selectPostById } from '../features/posts/postSlice';
 import { selectAllUsers } from '../features/users/userSlice';
 import { nanoid } from '@reduxjs/toolkit';
 
@@ -11,11 +11,12 @@ const UpdatePost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [userId, setUserId] = useState();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-
+  const post = useSelector(state => selectPostById(state, id));
   const users = useSelector(selectAllUsers);
+
+  const [userId, setUserId] = useState(post.userId);
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
 
   const updatePost = () => {
     const newPost = {
@@ -79,6 +80,7 @@ const UpdatePost = () => {
             New Title:
             <Input
               onChange={e => setTitle(e.target.value)}
+              value={title}
               type="text"
               name="title"
               placeholder="title"
@@ -90,6 +92,7 @@ const UpdatePost = () => {
             New Content:
             <textarea
               onChange={e => setContent(e.target.value)}
+              value={content}
               type="text"
               name="content"
               placeholder="content"

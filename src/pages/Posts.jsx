@@ -15,9 +15,9 @@ import { Loading, Report } from 'notiflix';
 const Posts = () => {
   //const posts = useSelector(state => state.posts);
   const dispatch = useDispatch();
-  const posts = useSelector(selectAllPosts);
   const status = useSelector(postStatus);
   const error = useSelector(errorMessage);
+  const posts = useSelector(selectAllPosts);
   const [searchValue, setSearchValue] = useState('');
   const sortPosts = useSort(posts, searchValue);
 

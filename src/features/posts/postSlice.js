@@ -64,6 +64,15 @@ export const selectAllPosts = state => state.posts.posts;
 export const postStatus = state => state.posts.status;
 export const errorMessage = state => state.posts.error;
 
-export const { reactionAdded } = postSlice.actions;
+export const selectPostById = (state, postId) => {
+  const post = state.posts.posts.find(post => post.id === postId);
 
+  if (!post) {
+    Report.failure('Post not found', '');
+    return [];
+  }
+  return post;
+};
+
+export const { reactionAdded } = postSlice.actions;
 export default postSlice.reducer;
