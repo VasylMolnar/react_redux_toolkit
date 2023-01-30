@@ -1,4 +1,9 @@
-import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  nanoid,
+  createAsyncThunk,
+  createSelector,
+} from '@reduxjs/toolkit';
 import { Report } from 'notiflix';
 import { fetchItems } from '../../hooks/fetchItem';
 import { fetchCRUD } from '../../hooks/fetchCRUD';
@@ -75,4 +80,12 @@ export const selectPostById = (state, postId) => {
     return [];
   }
   return post;
+};
+
+export const selectPostsByUser = (state, id) => {
+  const rez = state.posts.posts.filter(post => {
+    console.log(post.userId === Number(id));
+    return post.userId === id;
+  });
+  console.log(rez);
 };

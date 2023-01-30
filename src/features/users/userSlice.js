@@ -28,7 +28,9 @@ const usersSlice = createSlice({
 
 export const selectAllUsers = state => state.users;
 export const selectUserById = (state, id) => {
-  const user = state.users.find(user => user.id === id);
+  const user = state.users.find(user => {
+    return user.id === Number(id);
+  });
 
   if (!user) {
     Report.failure('User not found', '');
