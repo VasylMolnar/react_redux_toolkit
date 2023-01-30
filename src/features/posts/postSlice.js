@@ -84,12 +84,5 @@ export const selectPostById = (state, postId) => {
 };
 
 export const selectPostsByUser = (state, id) => {
-  const posts = state.posts.posts.filter(post => post.userId === Number(id));
-
-  if (!posts) {
-    Report.failure('Posts not found', '');
-    return [];
-  }
-
-  return posts;
+  return state.posts.posts.filter(post => post.userId === Number(id));
 };

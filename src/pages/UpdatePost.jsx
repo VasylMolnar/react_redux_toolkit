@@ -17,6 +17,7 @@ const UpdatePost = () => {
   const [userId, setUserId] = useState(post.userId);
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
+  let canUpdate = false;
 
   const updatePost = () => {
     const newPost = {
@@ -55,7 +56,9 @@ const UpdatePost = () => {
           className="form"
           onSubmit={e => {
             e.preventDefault();
-            updatePost();
+            if (canUpdate) {
+              updatePost();
+            }
           }}
         >
           <h3>Update Post</h3>
@@ -100,14 +103,28 @@ const UpdatePost = () => {
             />
           </label>
 
-          <Button
-            type="submit"
-            aria-label="Add Item"
-            className="btn btn-warning"
-            style={{ border: 'none', width: '250px', height: '60px' }}
-          >
-            Create
-          </Button>
+          <div>
+            <Button
+              type="submit"
+              aria-label="Add Item"
+              className="btn btn-warning"
+              style={{ border: 'none', width: '250px', height: '60px' }}
+              onClick={() => (canUpdate = true)}
+            >
+              Update Post
+            </Button>
+            <Button
+              type="submit"
+              onClick={e => {
+                navigate(-1);
+                canUpdate = false;
+              }}
+              className="btn btn-primary"
+              style={{ border: 'none', width: '250px', height: '60px' }}
+            >
+              Cancel
+            </Button>
+          </div>
         </form>
       </div>
     </section>

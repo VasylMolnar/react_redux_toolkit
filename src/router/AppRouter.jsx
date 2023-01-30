@@ -12,7 +12,9 @@ import Home from '../pages/Home';
 import { fetchUsers } from '../features/users/userSlice';
 import Users from '../pages/Users';
 import UserPage from '../pages/UserPage';
+import { fetchPosts } from '../features/posts/postSlice';
 
+store.dispatch(fetchPosts('posts'));
 store.dispatch(fetchUsers('users'));
 
 const AppRouter = () => {
