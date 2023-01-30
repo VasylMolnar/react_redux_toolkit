@@ -7,6 +7,7 @@ import {
 import { Report } from 'notiflix';
 import { fetchItems } from '../../hooks/fetchItem';
 import { fetchCRUD } from '../../hooks/fetchCRUD';
+import { Navigate } from 'react-router-dom';
 
 const initialState = {
   posts: [],
@@ -83,9 +84,12 @@ export const selectPostById = (state, postId) => {
 };
 
 export const selectPostsByUser = (state, id) => {
-  const rez = state.posts.posts.filter(post => {
-    console.log(post.userId === Number(id));
-    return post.userId === id;
-  });
-  console.log(rez);
+  const posts = state.posts.posts.filter(post => post.userId === Number(id));
+
+  if (!posts) {
+    Report.failure('Posts not found', '');
+    return [];
+  }
+
+  return posts;
 };
