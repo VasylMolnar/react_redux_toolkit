@@ -52,5 +52,3 @@ const UserPage = () => {
 };
 
 export default UserPage;
-
-//        <ol>{postsForUser}</ol>

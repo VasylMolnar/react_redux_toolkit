@@ -2,17 +2,17 @@ import {
   createSlice,
   nanoid,
   createAsyncThunk,
-  createSelector,
+  createSelector, //optimization.txt
 } from '@reduxjs/toolkit';
 import { Report } from 'notiflix';
 import { fetchItems } from '../../hooks/fetchItem';
 import { fetchCRUD } from '../../hooks/fetchCRUD';
-import { Navigate } from 'react-router-dom';
 
 const initialState = {
   posts: [],
   status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
   fetchError: null,
+  count: 0,
 };
 
 export const fetchPosts = createAsyncThunk('posts/fetchItems', async url => {
@@ -45,6 +45,10 @@ const postSlice = createSlice({
         existingPost.reactions[reaction]++; //is work
       }
     },
+
+    increaseCount(state, action) {
+      state.count += 1;
+    },
   },
   extraReducers(builder) {
     builder
@@ -66,12 +70,13 @@ const postSlice = createSlice({
   },
 });
 
-export const { reactionAdded } = postSlice.actions;
+export const { increaseCount, reactionAdded } = postSlice.actions;
 export default postSlice.reducer;
 
 export const selectAllPosts = state => state.posts.posts;
 export const postStatus = state => state.posts.status;
 export const errorMessage = state => state.posts.error;
+export const getCount = state => state.posts.count;
 
 export const selectPostById = (state, postId) => {
   const post = state.posts.posts.find(post => post.id === postId);
@@ -83,6 +88,7 @@ export const selectPostById = (state, postId) => {
   return post;
 };
 
-export const selectPostsByUser = (state, id) => {
-  return state.posts.posts.filter(post => post.userId === Number(id));
-};
+export const selectPostsByUser = createSelector(
+  [selectAllPosts, (state, id) => id],
+  (posts, id) => posts.filter(post => post.userId === Number(id))
+);

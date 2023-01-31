@@ -1,9 +1,9 @@
-export const selectPostById = (state, postId) => { // postSlice.js
-  return state.posts.posts.find(post => post.id === postId);
-};
+1 ) Post.jsx and UpdatePost.jsx
 
+    export const selectPostById = (state, postId) => { // postSlice.js
+      return state.posts.posts.find(post => post.id === postId);
+    };
 
-Post.jsx and UpdatePost.jsx
 
     before
 
@@ -15,4 +15,32 @@ Post.jsx and UpdatePost.jsx
     const post = useSelector(state => selectPostById(state, id));
 
 
-Users.jsx and UserPage.jsx (React dev tools) 
+2 ) Users.jsx and UserPage.jsx (React dev tools)  (this method works as useMemo in React)
+    (in Nav.jsx click on the button)
+    import createSelector from "@reduxjs/toolkit";
+
+    before (img 1)
+     (UserPage.jsx)
+      const postsForUser = useSelector(state => selectPostsByUser(state, id));
+
+
+      (postSlice.js)
+      export const selectPostsByUser = (state, id) => {       
+        return state.posts.posts.filter(post => post.userId === Number(id));
+      };
+
+
+    after (img 2) now UserPage.jsx not rendered if we click on the button. and filter not created new array in render because createSelector works as useMemo in React.
+      const postsForUser = useSelector(state => selectPostsByUser(state, id));
+
+      export const selectPostsByUser = createSelector(
+        [selectAllPosts, (state, id) => id],
+        (posts, id) => posts.filter(post => post.userId === Number(id))
+      );
+
+
+
+
+
+
+Header (Nav buttons (React dev tools) Profile)

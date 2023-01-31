@@ -1,7 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCount, increaseCount } from '../../../features/posts/postSlice';
 
 const Nav = () => {
+  const dispatch = useDispatch();
+  const count = useSelector(getCount);
+
   return (
     <nav
       className="navbar navbar-expand-lg bg-body-tertiary"
@@ -19,6 +24,7 @@ const Nav = () => {
       <NavLink to="/about" className="navbar-brand">
         About
       </NavLink>
+      <button onClick={() => dispatch(increaseCount())}>{count}</button>
     </nav>
   );
 };
