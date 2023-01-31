@@ -35,7 +35,10 @@ const Posts = () => {
         {error && (Report.failure('Error', `${error}`), Loading.remove())}
         {status === 'succeeded' &&
           !error &&
-          (Loading.remove(500), (<PostCard posts={sortPosts.reverse()} />))}
+          (Loading.remove(500),
+          sortPosts
+            .reverse()
+            .map(post => <PostCard post={post} key={post.id} />))}
       </div>
     </section>
   );

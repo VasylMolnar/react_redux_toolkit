@@ -5,8 +5,8 @@ import ReactionButtons from './ReactionButtons';
 import PostAuthor from './PostAuthor';
 import TimeAgo from './TimeAgo';
 
-const PostCard = ({ posts }) => {
-  if (!posts || !posts.length) {
+const PostCard = ({ post }) => {
+  if (!post) {
     Notify.warning('List is empty.');
     return (
       <section className="section post">
@@ -15,7 +15,7 @@ const PostCard = ({ posts }) => {
     );
   }
 
-  return posts.map(post => (
+  return (
     <div
       className="card"
       key={post.id}
@@ -39,7 +39,7 @@ const PostCard = ({ posts }) => {
         <ReactionButtons reactions={post.reactions} id={post.id} />
       </div>
     </div>
-  ));
+  );
 };
 
 export default PostCard;

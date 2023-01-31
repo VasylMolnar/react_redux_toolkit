@@ -16,7 +16,7 @@
 
 
 2 ) Users.jsx and UserPage.jsx (React dev tools)  (this method works as useMemo in React)
-    (in Nav.jsx click on the button)
+    (in Nav.jsx click on the button)  Profile
     import createSelector from "@reduxjs/toolkit";
 
     before (img 1)
@@ -39,8 +39,90 @@
       );
 
 
+3 ) Posts.jsx and PostCard.jsx use Memo to fix the problem.
+    (Each component is rendered. When we click the button on only one component (other components should not be rendered))
+
+    before (img 3)
+    const PostCard = ({ post }) => {
+        if (!post) {
+          Notify.warning('List is empty.');
+          return (
+            <section className="section post">
+              <h1 className="container  text-warning text-center">List is empty.</h1>
+            </section>
+          );
+        }
+
+        return(
+          <div
+            className="card"
+            key={post.id}
+            style={{ margin: '10px', cursor: 'pointer' }}
+          >
+            <Link
+              to={`/posts/${post.id}`}
+              className="card-body"
+              style={{ textDecoration: 'none' }}
+            >
+              <h3 className="card-title">{post.title}</h3>
+              <p className="card-name">
+                <PostAuthor userId={post.userId} />
+              </p>
+              <p className="card-body">{post.content}</p>
+              <p className="card-date">
+                <TimeAgo timestamp={post.date} />
+              </p>
+            </Link>
+            <div className="button_list">
+              <ReactionButtons reactions={post.reactions} id={post.id} />
+            </div>
+          </div>
+        );
+    };
+
+    export default PostCard;
 
 
+    after (img 4) //now PostCard not be rendered if {posts} not be changed (this method can fix problems (and other components not be rendered only components on which the button was clicked))
+    let PostCard = ({ post }) => {
+      if (!post) {
+        Notify.warning('List is empty.');
+        return (
+          <section className="section post">
+            <h1 className="container  text-warning text-center">List is empty.</h1>
+          </section>
+        );
+      }
+
+      return (
+        <div
+          className="card"
+          key={post.id}
+          style={{ margin: '10px', cursor: 'pointer' }}
+        >
+          <Link
+            to={`/posts/${post.id}`}
+            className="card-body"
+            style={{ textDecoration: 'none' }}
+          >
+            <h3 className="card-title">{post.title}</h3>
+            <p className="card-name">
+              <PostAuthor userId={post.userId} />
+            </p>
+            <p className="card-body">{post.content}</p>
+            <p className="card-date">
+              <TimeAgo timestamp={post.date} />
+            </p>
+          </Link>
+          <div className="button_list">
+            <ReactionButtons reactions={post.reactions} id={post.id} />
+          </div>
+        </div>
+      );
+    };
+
+    PostCard = React.memo(PostCard); //now PostCard not be rendered if {posts} not be changed
+    export default PostCard;
 
 
-Header (Nav buttons (React dev tools) Profile)
+3.1 ) another method
