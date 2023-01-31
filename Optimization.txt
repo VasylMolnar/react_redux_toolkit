@@ -123,6 +123,3 @@
 
     PostCard = React.memo(PostCard); //now PostCard not be rendered if {posts} not be changed
     export default PostCard;
-
-
-3.1 ) another method

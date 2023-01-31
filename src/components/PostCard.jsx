@@ -5,7 +5,7 @@ import ReactionButtons from './ReactionButtons';
 import PostAuthor from './PostAuthor';
 import TimeAgo from './TimeAgo';
 
-const PostCard = ({ post }) => {
+let PostCard = ({ post }) => {
   if (!post) {
     Notify.warning('List is empty.');
     return (
@@ -42,4 +42,5 @@ const PostCard = ({ post }) => {
   );
 };
 
+PostCard = React.memo(PostCard);
 export default PostCard;
