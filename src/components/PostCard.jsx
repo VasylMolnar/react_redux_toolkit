@@ -1,19 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Notify } from 'notiflix';
 import ReactionButtons from './ReactionButtons';
 import PostAuthor from './PostAuthor';
 import TimeAgo from './TimeAgo';
+import { useSelector } from 'react-redux';
+import { selectPostById } from '../features/posts/postSlice';
 
-let PostCard = ({ post }) => {
-  if (!post) {
-    Notify.warning('List is empty.');
-    return (
-      <section className="section post">
-        <h1 className="container  text-warning text-center">List is empty.</h1>
-      </section>
-    );
-  }
+const PostCard = ({ postIds }) => {
+  const post = useSelector(state => selectPostById(state, postIds));
 
   return (
     <div
@@ -42,5 +36,4 @@ let PostCard = ({ post }) => {
   );
 };
 
-PostCard = React.memo(PostCard);
 export default PostCard;
