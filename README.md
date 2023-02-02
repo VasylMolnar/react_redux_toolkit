@@ -90,6 +90,3 @@ This section has moved here:
 This section has moved here:
 [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-
-###Video
-[4.zip](https://github.com/VasylMolnar/react_redux_toolkit/files/10565912/4.zip)
