@@ -1,15 +1,7 @@
-import Footer from './components/Footer';
-//import Header from './components/Header';
-import AppRouter from './router/AppRouter';
+import TodoList from "./features/todos/TodoList";
 
 function App() {
-  return (
-    <div className="App">
-      {/*<Header />*/}
-      <AppRouter />
-      <Footer />
-    </div>
-  );
+  return <TodoList />
 }
 
 export default App;
