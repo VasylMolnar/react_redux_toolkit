@@ -15,25 +15,11 @@
   ],
   "posts": [
     {
-      "id": "dttnMpgEXczgfnoHq3KwI",
+      "id": "halxo62zicZrXSe7mcDSm",
       "userId": 1,
-      "title": "123 test ",
-      "content": "hello",
-      "date": "2023-02-01T13:55:30.607Z",
-      "reactions": {
-        "thumbsUp": 0,
-        "wow": 0,
-        "heart": 0,
-        "rocket": 0,
-        "coffee": 0
-      }
-    },
-    {
-      "id": "dttnMpgEXczgfnoHq3KwI123",
-      "userId": 1,
-      "title": "test ",
-      "content": "hi",
-      "date": "2023-02-01T13:55:30.607Z",
+      "title": "123",
+      "content": "123",
+      "date": "2023-02-02T06:20:50.787Z",
       "reactions": {
         "thumbsUp": 0,
         "wow": 0,
