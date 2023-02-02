@@ -92,4 +92,4 @@ This section has moved here:
 
 ###video
 
-![Video](img/vid4.mov)
+![](img/vid4.mov)
