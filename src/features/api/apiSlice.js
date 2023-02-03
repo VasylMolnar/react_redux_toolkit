@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:1234' }),
-  tagTypes: ['Todos'], //save request data
+  tagTypes: ['Todos'], //here we save request data (cache)
   endpoints: builder => ({
     // endpoints CRUD methods (any name)
     getTodos: builder.query({
@@ -32,6 +32,7 @@ export const apiSlice = createApi({
       query: id => ({
         url: `/todos/${id}`,
         method: 'DELETE',
+        body: id,
       }),
       invalidatesTags: ['Todos'],
     }),
