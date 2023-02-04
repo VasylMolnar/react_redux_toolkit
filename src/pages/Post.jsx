@@ -1,17 +1,18 @@
 import React from 'react';
 import { Report } from 'notiflix';
 import { Link, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Button from '../components/Ul/Button/Button';
 import TimeAgo from '../components/TimeAgo';
-import { selectPostById } from '../features/posts/postSlice';
+import {
+  selectPostById,
+  useDeletePostMutation,
+} from '../features/posts/postSlice';
 
 const Post = () => {
-  const dispatch = useDispatch();
   const { id } = useParams();
-
   const post = useSelector(state => selectPostById(state, id));
-
+  const [deletePost] = useDeletePostMutation();
   if (!post) {
     Report.warning('Post not found', '');
 
@@ -49,21 +50,7 @@ const Post = () => {
 
         <div style={{ marginTop: '50px' }}>
           <Link to={'/posts'}>
-            <Button
-              className="btn btn-danger"
-              /*onClick={() =>
-                dispatch(
-                  apiRequest({
-                    url: `/posts/${id}`,
-                    method: 'delete',
-                    name: 'delete',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                  })
-                )
-              }*/
-            >
+            <Button className="btn btn-danger" onClick={() => deletePost(id)}>
               Delete
             </Button>
           </Link>

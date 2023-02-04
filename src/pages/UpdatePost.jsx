@@ -1,16 +1,18 @@
 import { useState, React } from 'react';
 import Input from '../components/Ul/Input/Input';
 import Button from '../components/Ul/Button/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { selectPostById } from '../features/posts/postSlice';
-import { nanoid } from '@reduxjs/toolkit';
+import {
+  selectPostById,
+  useUpdatePostMutation,
+} from '../features/posts/postSlice';
 
 const UpdatePost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const post = useSelector(state => selectPostById(state, id));
+  const [updatePostById] = useUpdatePostMutation();
   //const users = useSelector(selectAllUsers);
   const users = [];
 
@@ -20,32 +22,13 @@ const UpdatePost = () => {
   let canUpdate = false;
 
   const updatePost = () => {
-    const newPost = {
-      id: nanoid(),
-      userId,
+    updatePostById({
       title,
       content,
-      date: new Date().toISOString(),
-      reactions: {
-        thumbsUp: 0,
-        wow: 0,
-        heart: 0,
-        rocket: 0,
-        coffee: 0,
-      },
-    };
-
-    const option = {
-      url: `/posts/${id}`,
-      method: 'put',
-      name: 'update',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newPost),
-    };
-
-    //dispatch(apiRequest(option));
+      userId,
+      id: post.id,
+      reactions: post.reactions,
+    });
     navigate('/posts');
   };
 

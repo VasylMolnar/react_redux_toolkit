@@ -1,4 +1,5 @@
 import {
+  nanoid,
   createSelector, //optimization.txt
   createEntityAdapter, //optimization.txt
 } from '@reduxjs/toolkit';
@@ -13,28 +14,128 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     getPosts: builder.query({
       query: () => '/posts',
+
       //img
       transformResponse: responseData => {
         //save to postsAdapter (img 1) providesTags have data that has been transformed into postsAdapter
         return postsAdapter.setAll(initialState, responseData);
       },
       providesTags: (result, error, arg) => {
+        //in this we are starting create a new [Post] and push data
         //create Object ids and save to cache (apiSlice.js)
-        return [...result.ids.map(id => ({ type: 'Post', id }))];
+        return [
+          { type: 'Post', id: 'LIST' }, //create a new [Post]
+          ...result.ids.map(id => ({ type: 'Post', id })),
+        ];
+      },
+    }),
+
+    addPost: builder.mutation({
+      query: initialPost => ({
+        url: '/posts',
+        method: 'post',
+        body: {
+          ...initialPost,
+          id: nanoid(),
+          date: new Date().toISOString(),
+          reactions: {
+            thumbsUp: 0,
+            wow: 0,
+            heart: 0,
+            rocket: 0,
+            coffee: 0,
+          },
+        },
+      }),
+
+      invalidatesTags: [{ type: 'Post', id: 'LIST' }], //in this we add to all [Post]
+    }),
+
+    updatePost: builder.mutation({
+      query: initialPost => ({
+        url: `/posts/${initialPost.id}`,
+        method: 'PUT',
+        body: {
+          ...initialPost,
+          date: new Date().toISOString(),
+        },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
+      /*this changes post  by id  in [Post]
+        [Post] = {id:{id,title,content...}} img 1 (apiSlice.js tagTypes: ['Post', 'User'])
+      */
+    }),
+
+    deletePost: builder.mutation({
+      query: id => ({
+        url: `posts/${id}`,
+        method: 'delete',
+        body: id,
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
+    }),
+
+    getPostsByUserId: builder.query({
+      query: id => `/posts/?userId=${id}`,
+      transformResponse: responseData => {
+        return postsAdapter.setAll(initialState, responseData);
+      },
+      providesTags: (result, error, arg) => [
+        ...result.ids.map(id => ({ type: 'Post', id })),
+      ],
+    }),
+
+    addReaction: builder.mutation({
+      query: ({ postId, reactions }) => ({
+        url: `posts/${postId}`,
+        method: 'PATCH',
+        // In a real app, we'd probably need to base this on user ID somehow
+        // so that a user can't do the same reaction more than once
+        body: { reactions },
+      }),
+      async onQueryStarted(
+        { postId, reactions },
+        { dispatch, queryFulfilled }
+      ) {
+        // `updateQueryData` requires the endpoint name and cache key arguments,
+        // so it knows which piece of cache state to update
+        const patchResult = dispatch(
+          extendedApiSlice.util.updateQueryData(
+            'getPosts',
+            undefined,
+            draft => {
+              // The `draft` is Immer-wrapped and can be "mutated" like in createSlice
+              const post = draft.entities[postId];
+              if (post) post.reactions = reactions;
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
       },
     }),
   }),
 }); //redux (in this extendedApiSlice we are creating functions and extended apiSlice.js (createApi))
 
-export const { useGetPostsQuery } = extendedApiSlice; //export function from extendedApiSlice
-
-// returns the query result object
-export const selectPostsResult = extendedApiSlice.endpoints.getPosts.select();
+export const {
+  useGetPostsQuery,
+  useAddPostMutation,
+  useUpdatePostMutation,
+  useDeletePostMutation,
+  useGetPostsByUserIdQuery,
+  useAddReactionMutation,
+} = extendedApiSlice; //export function from extendedApiSlice
 
 // Creates memoized selector
 const selectPostsData = createSelector(
-  selectPostsResult,
-  postsResult => postsResult.data // normalized state object with ids & entities
+  extendedApiSlice.endpoints.getPosts.select(), // returns the query result object
+  postsResult => {
+    //console.log(postsResult);
+    return postsResult.data;
+  } // normalized state object with ids & entities
 );
 
 //getSelectors creates these selectors and we rename them with aliases using destructuring (img)

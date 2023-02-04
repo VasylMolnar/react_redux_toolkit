@@ -13,8 +13,10 @@ import Home from '../pages/Home';
 import Users from '../pages/Users';
 import UserPage from '../pages/UserPage';
 import { extendedApiSlice } from '../features/posts/postSlice';
+import { usersApiSlice } from '../features/users/userSlice';
 
 store.dispatch(extendedApiSlice.endpoints.getPosts.initiate());
+store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
 
 const AppRouter = () => {
   return (

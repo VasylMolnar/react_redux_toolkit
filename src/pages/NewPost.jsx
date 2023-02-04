@@ -1,46 +1,20 @@
 import { useState, React } from 'react';
 import Input from '../components/Ul/Input/Input';
 import Button from '../components/Ul/Button/Button';
-import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { nanoid } from '@reduxjs/toolkit';
+import { useAddPostMutation } from '../features/posts/postSlice';
 
 const NewPost = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState(0);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-
+  const [addPost] = useAddPostMutation();
   //const users = useSelector(selectAllUsers);
   const users = [];
+
   const createNewPost = () => {
-    const newPost = {
-      id: nanoid(),
-      userId,
-      title,
-      content,
-      date: new Date().toISOString(),
-      reactions: {
-        thumbsUp: 0,
-        wow: 0,
-        heart: 0,
-        rocket: 0,
-        coffee: 0,
-      },
-    };
-
-    const option = {
-      url: '/posts',
-      method: 'post',
-      name: 'create',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newPost),
-    };
-
-    //dispatch(apiRequest(option));
+    addPost({ title, content, userId });
     navigate('/posts');
   };
 

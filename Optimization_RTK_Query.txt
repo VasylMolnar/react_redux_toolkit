@@ -27,6 +27,19 @@ Delete all fetchCRUD.js and FetchItem.js
         const orderedPostIds = useSelector(selectPostIds);
         /*console.log(orderedPostIds);[3, 5, 2] because in here we take data from (providesTags ["Post"] cache) (postSlices.js 21)*/
 
+    providesTags 
+
+      providesTags: (result, error, arg) => {//in this we are starting create a new [Post] and push data
+         //create Object ids
+         return [...result.ids.map(id => ({ type: 'Post', id }))];
+      },
+        
+      invalidatesTags: [{ type: 'Post', id: 'LIST' }], //in this we add to all [Post]
+
+      invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
+      /*this changes post  by id  in [Post]
+        [Post] = {id:{id,title,content...}} img 1 (apiSlice.js tagTypes: ['Post', 'User'])
+      */
 
 2)  AppRouter.jsx
 
@@ -37,7 +50,6 @@ Delete all fetchCRUD.js and FetchItem.js
             after
                 store.dispatch(extendedApiSlice.endpoints.getPosts.initiate());
                 store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
-
 
 3) postSlice.js
     
@@ -152,17 +164,16 @@ Delete all fetchCRUD.js and FetchItem.js
         export const { increaseCount, reactionAdded } = postSlice.actions;
         export default postSlice.reducer;
 
-
     after
-
-
+        postSlice.js
 
 4) userSlice.js
 
         before
-
-
-
+            see previous work
+        
+        after
+            userSlice.js
 
 5) store.js
 

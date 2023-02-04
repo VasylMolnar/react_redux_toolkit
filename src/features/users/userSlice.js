@@ -1,39 +1,37 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { Report } from 'notiflix';
+import { createSelector, createEntityAdapter } from '@reduxjs/toolkit';
+import { apiSlice } from '../api/apiSlice';
 
-let initialState = [];
+const usersAdapter = createEntityAdapter();
+const initialState = usersAdapter.getInitialState();
 
-const usersSlice = createSlice({
-  name: 'users',
-  initialState,
-  reducers: {},
+export const usersApiSlice = apiSlice.injectEndpoints({
+  endpoints: builder => ({
+    getUsers: builder.query({
+      query: () => '/users',
+      transformResponse: responseData => {
+        return usersAdapter.setAll(initialState, responseData);
+      },
+      providesTags: (result, error, arg) => [
+        { type: 'User', id: 'LIST' },
+        ...result.ids.map(id => ({ type: 'User', id })),
+      ],
+    }),
+  }),
 });
 
-export const selectAllUsers = state => state.users;
-export const selectUserById = (state, id) => {
-  const user = state.users.find(user => {
-    return user.id === Number(id);
-  });
+export const { useGetUsersQuery } = usersApiSlice;
 
-  if (!user) {
-    Report.failure('User not found', '');
-    return [];
-  }
+// Creates memoized selector
+const selectUsersData = createSelector(
+  usersApiSlice.endpoints.getUsers.select(), // returns the query result object
 
-  return user;
-};
+  usersResult => usersResult.data // normalized state object with ids & entities
+);
 
-export default usersSlice.reducer;
-
-/* this is not working because in Redux we mast working in createAsyncThunk (in js and React Component is working but not in Redux) 
- usersPost: (state, action) => {
-      let a = [];
-
-      FetchPost().then(response => {
-        a = response;
-        console.log(a);
-      });
-      console.log(a);
-      // return (state = rez);
-    },
-*/
+//getSelectors creates these selectors and we rename them with aliases using destructuring
+export const {
+  selectAll: selectAllUsers,
+  selectById: selectUserById,
+  selectIds: selectUserIds,
+  // Pass in a selector that returns the posts slice of state
+} = usersAdapter.getSelectors(state => selectUsersData(state) ?? initialState);
