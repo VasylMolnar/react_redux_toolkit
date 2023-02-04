@@ -3,8 +3,6 @@ import Input from '../components/Ul/Input/Input';
 import Button from '../components/Ul/Button/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { selectAllUsers } from '../features/users/userSlice';
-import { apiRequest } from '../features/posts/postSlice';
 import { nanoid } from '@reduxjs/toolkit';
 
 const NewPost = () => {
@@ -14,8 +12,8 @@ const NewPost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const users = useSelector(selectAllUsers);
-
+  //const users = useSelector(selectAllUsers);
+  const users = [];
   const createNewPost = () => {
     const newPost = {
       id: nanoid(),
@@ -42,7 +40,7 @@ const NewPost = () => {
       body: JSON.stringify(newPost),
     };
 
-    dispatch(apiRequest(option));
+    //dispatch(apiRequest(option));
     navigate('/posts');
   };
 

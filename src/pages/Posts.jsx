@@ -1,34 +1,28 @@
-import { useState, React, useEffect } from 'react';
+import { useState, React } from 'react';
 import Search from '../components/Search';
 import PostCard from '../components/PostCard';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  selectPostIds,
-  errorMessage,
-  postStatus,
-  fetchPosts,
-} from '../features/posts/postSlice';
+import { useSelector } from 'react-redux';
+import { selectPostIds } from '../features/posts/postSlice';
 import useSort from '../hooks/useSort';
 import { Loading, Report, Notify } from 'notiflix';
 import Button from '../components/Ul/Button/Button';
 import { Link } from 'react-router-dom';
+import { useGetPostsQuery } from '../features/posts/postSlice';
 
 const Posts = () => {
-  //const posts = useSelector(state => state.posts);
-  const dispatch = useDispatch();
-  const status = useSelector(postStatus);
-  const error = useSelector(errorMessage);
+  const { isLoading, isSuccess, isError, error } = useGetPostsQuery(); //have and data byt we use orderedPostIds
+  /*console.log(useGetPostsQuery());
+  entities: 
+      2: {…}, 3: {…}, 5: {…}}
+  ids: 
+      (3) [3, 5, 2]
+    because in here we take data from postsAdapter (postSlices.js 17)
+  */
 
   const orderedPostIds = useSelector(selectPostIds);
+  /*console.log(orderedPostIds);[3, 5, 2] because in here we take data from (providesTags ["Post"] cache) (postSlices.js 21)*/
   const [searchValue, setSearchValue] = useState('');
   const sortPosts = useSort(orderedPostIds, searchValue);
-
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchPosts('posts'));
-    }
-  }, [status, dispatch]);
-
   if (sortPosts.length === 0) {
     return (
       <section className="section posts">
@@ -52,13 +46,13 @@ const Posts = () => {
     <section className="section posts">
       <div className="container">
         <Search setSearchValue={setSearchValue} />
-        {status === 'loading' && Loading.hourglass(' Loading Items...')}
+        {isLoading && Loading.hourglass(' Loading Items...')}
         {error && (Report.failure('Error', `${error}`), Loading.remove())}
-        {status === 'succeeded' &&
-          !error &&
+        {isSuccess &&
+          !isError &&
           (Loading.remove(500),
           sortPosts.map(postIds => (
-            <PostCard postIds={postIds.id} key={postIds} />
+            <PostCard postIds={postIds.id} key={postIds.id} />
           )))}
       </div>
     </section>

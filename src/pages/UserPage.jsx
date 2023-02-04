@@ -2,14 +2,14 @@ import React from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { selectUserById } from '../features/users/userSlice';
 import { useSelector } from 'react-redux';
-import { selectPostsByUser } from '../features/posts/postSlice';
+//import { selectPostsByUser } from '../features/posts/postSlice';
 
 const UserPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const user = useSelector(state => selectUserById(state, id));
-  const postsForUser = useSelector(state => selectPostsByUser(state, id));
-
+  // = useSelector(state => selectPostsByUser(state, id));
+  const postsForUser = [];
   if (!postsForUser.length) {
     return (
       <section className="users section">

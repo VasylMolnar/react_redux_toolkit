@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { selectPostById } from '../features/posts/postSlice';
 
 const useSort = (postsIds, searchValue) => {
-  //const items = useSelector(state => selectPostById(state, postId));
   const items = useSelector(state => {
     return postsIds.map(postId => selectPostById(state, postId));
   });

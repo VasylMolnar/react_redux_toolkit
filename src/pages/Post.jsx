@@ -3,7 +3,6 @@ import { Report } from 'notiflix';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '../components/Ul/Button/Button';
-import { apiRequest } from '../features/posts/postSlice';
 import TimeAgo from '../components/TimeAgo';
 import { selectPostById } from '../features/posts/postSlice';
 
@@ -52,7 +51,7 @@ const Post = () => {
           <Link to={'/posts'}>
             <Button
               className="btn btn-danger"
-              onClick={() =>
+              /*onClick={() =>
                 dispatch(
                   apiRequest({
                     url: `/posts/${id}`,
@@ -63,7 +62,7 @@ const Post = () => {
                     },
                   })
                 )
-              }
+              }*/
             >
               Delete
             </Button>

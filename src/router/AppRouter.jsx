@@ -10,13 +10,11 @@ import UpdatePost from '../pages/UpdatePost';
 import { Provider } from 'react-redux';
 import { store } from '../app/store';
 import Home from '../pages/Home';
-import { fetchUsers } from '../features/users/userSlice';
 import Users from '../pages/Users';
 import UserPage from '../pages/UserPage';
-import { fetchPosts } from '../features/posts/postSlice';
+import { extendedApiSlice } from '../features/posts/postSlice';
 
-store.dispatch(fetchPosts('posts'));
-store.dispatch(fetchUsers('users'));
+store.dispatch(extendedApiSlice.endpoints.getPosts.initiate());
 
 const AppRouter = () => {
   return (

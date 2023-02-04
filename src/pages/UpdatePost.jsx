@@ -3,8 +3,7 @@ import Input from '../components/Ul/Input/Input';
 import Button from '../components/Ul/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { apiRequest, selectPostById } from '../features/posts/postSlice';
-import { selectAllUsers } from '../features/users/userSlice';
+import { selectPostById } from '../features/posts/postSlice';
 import { nanoid } from '@reduxjs/toolkit';
 
 const UpdatePost = () => {
@@ -12,7 +11,8 @@ const UpdatePost = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const post = useSelector(state => selectPostById(state, id));
-  const users = useSelector(selectAllUsers);
+  //const users = useSelector(selectAllUsers);
+  const users = [];
 
   const [userId, setUserId] = useState(post.userId);
   const [title, setTitle] = useState(post.title);
@@ -45,7 +45,7 @@ const UpdatePost = () => {
       body: JSON.stringify(newPost),
     };
 
-    dispatch(apiRequest(option));
+    //dispatch(apiRequest(option));
     navigate('/posts');
   };
 

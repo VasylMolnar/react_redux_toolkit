@@ -27,7 +27,7 @@ const ReactionButtons = ({ reactions, id }) => {
           border: '1px solid gray',
           borderRadius: '20px',
         }}
-        onClick={() => dispatch(reactionAdded({ postId: id, reaction: key }))}
+        //onClick={() => dispatch(reactionAdded({ postId: id, reaction: key }))}
       >
         {reactionEmoji[key]} {reactions[key]}
       </Button>

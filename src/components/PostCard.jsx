@@ -8,7 +8,6 @@ import { selectPostById } from '../features/posts/postSlice';
 
 const PostCard = ({ postIds }) => {
   const post = useSelector(state => selectPostById(state, postIds));
-
   return (
     <div
       className="card"
@@ -21,9 +20,7 @@ const PostCard = ({ postIds }) => {
         style={{ textDecoration: 'none' }}
       >
         <h3 className="card-title">{post.title}</h3>
-        <p className="card-name">
-          <PostAuthor userId={post.userId} />
-        </p>
+        <p className="card-name">{/*<PostAuthor userId={post.userId} />*/}</p>
         <p className="card-body">{post.content}</p>
         <p className="card-date">
           <TimeAgo timestamp={post.date} />
