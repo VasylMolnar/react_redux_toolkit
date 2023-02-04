@@ -297,7 +297,7 @@
               export default PostCard;
 
 
-        postSlice.js(change code)
+        postSlice.js(change code)  previous code see 2.2_Async_Logic_and_Axios
              
               const postsAdapter = createEntityAdapter({
                 sortComparer: (a, b) => b.date.localeCompare(a.date),
@@ -369,6 +369,15 @@
 
               //getSelectors creates these selectors and we rename them with aliases using destructuring
               // postsAdapter.getSelectors have  own methods (selectAll,selectById,selectIds ...) we just changed the name.
+              /*
+                {ids: Array(3), entities: {…}}
+                    entities: 
+                        {2: {…}, 3: {…}, 5: {…}}
+                    ids: 
+                       (3) [3, 5, 2]
+                    [[Prototype]]: 
+                        Object*/
+                        
               export const {
                 selectAll: selectAllPosts,
                 selectById: selectPostById,
