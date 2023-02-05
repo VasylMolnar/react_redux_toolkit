@@ -233,45 +233,17 @@
   ],
   "posts": [
     {
-      "title": "123",
-      "content": "123",
-      "userId": 1,
-      "id": "swEAyvUolWt3hP3j-bDYh",
-      "date": "2023-02-05T09:22:17.655Z",
-      "reactions": {
-        "thumbsUp": 0,
-        "wow": 0,
-        "heart": 0,
-        "rocket": 0,
-        "coffee": 0
-      }
-    },
-    {
       "title": "asd",
-      "content": "13wdas",
-      "userId": 1,
-      "id": "T5BDgdfuMDErcgUgcH1cV",
-      "date": "2023-02-05T09:22:23.805Z",
-      "reactions": {
-        "thumbsUp": 6,
-        "wow": 3,
-        "heart": 3,
-        "rocket": 0,
-        "coffee": 0
-      }
-    },
-    {
-      "title": "132",
-      "content": "123",
+      "content": "asd",
       "userId": 2,
-      "id": "lbYYLmHN29qT8oW4DhAZY",
-      "date": "2023-02-05T13:35:36.612Z",
+      "id": "AmSLH_L2imanFoJvNwbwZ",
+      "date": "2023-02-05T14:23:24.608Z",
       "reactions": {
-        "thumbsUp": 24,
-        "wow": 10,
-        "heart": 13,
-        "rocket": 9,
-        "coffee": 9
+        "thumbsUp": 1,
+        "wow": 1,
+        "heart": 1,
+        "rocket": 3,
+        "coffee": 0
       }
     }
   ]
