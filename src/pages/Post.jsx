@@ -8,11 +8,14 @@ import {
   selectPostById,
   useDeletePostMutation,
 } from '../features/posts/postSlice';
+import { selectUserById } from '../features/users/userSlice';
 
 const Post = () => {
   const { id } = useParams();
   const post = useSelector(state => selectPostById(state, id));
+  const user = useSelector(state => selectUserById(state, post.userId));
   const [deletePost] = useDeletePostMutation();
+
   if (!post) {
     Report.warning('Post not found', '');
 
@@ -42,6 +45,7 @@ const Post = () => {
           padding: '30px',
         }}
       >
+        <h2>Author: {user?.name}</h2>
         <h3 className="card-title">{post.title}</h3>
         <p className="card-body">{post.content}</p>
         <p className="card-date">

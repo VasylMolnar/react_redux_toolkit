@@ -7,14 +7,14 @@ import {
   selectPostById,
   useUpdatePostMutation,
 } from '../features/posts/postSlice';
+import { selectAllUsers } from '../features/users/userSlice';
 
 const UpdatePost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const post = useSelector(state => selectPostById(state, id));
   const [updatePostById] = useUpdatePostMutation();
-  //const users = useSelector(selectAllUsers);
-  const users = [];
+  const users = useSelector(selectAllUsers);
 
   const [userId, setUserId] = useState(post.userId);
   const [title, setTitle] = useState(post.title);

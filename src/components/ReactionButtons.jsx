@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from './Ul/Button/Button';
-import { useDispatch } from 'react-redux';
-import { reactionAdded } from '../features/posts/postSlice';
+import { useAddReactionMutation } from '../features/posts/postSlice';
 
 const reactionEmoji = {
   thumbsUp: '👍',
@@ -12,8 +11,8 @@ const reactionEmoji = {
 };
 
 const ReactionButtons = ({ reactions, id }) => {
-  const dispatch = useDispatch();
   const reactionButtons = [];
+  const [reactionAdded] = useAddReactionMutation();
 
   for (const key in reactions) {
     reactionButtons.push(
@@ -27,7 +26,12 @@ const ReactionButtons = ({ reactions, id }) => {
           border: '1px solid gray',
           borderRadius: '20px',
         }}
-        //onClick={() => dispatch(reactionAdded({ postId: id, reaction: key }))}
+        onClick={() => {
+          reactionAdded({
+            postId: id,
+            reactions: { ...reactions, [key]: reactions[key] + 1 },
+          });
+        }}
       >
         {reactionEmoji[key]} {reactions[key]}
       </Button>

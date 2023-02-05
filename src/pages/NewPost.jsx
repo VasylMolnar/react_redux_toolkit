@@ -3,6 +3,8 @@ import Input from '../components/Ul/Input/Input';
 import Button from '../components/Ul/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useAddPostMutation } from '../features/posts/postSlice';
+import { selectAllUsers } from '../features/users/userSlice';
+import { useSelector } from 'react-redux';
 
 const NewPost = () => {
   const navigate = useNavigate();
@@ -10,8 +12,8 @@ const NewPost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [addPost] = useAddPostMutation();
-  //const users = useSelector(selectAllUsers);
-  const users = [];
+
+  const users = useSelector(selectAllUsers);
 
   const createNewPost = () => {
     addPost({ title, content, userId });

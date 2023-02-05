@@ -2,12 +2,11 @@ import { useState, React } from 'react';
 import Search from '../components/Search';
 import PostCard from '../components/PostCard';
 import { useSelector } from 'react-redux';
-import { selectPostIds } from '../features/posts/postSlice';
 import useSort from '../hooks/useSort';
 import { Loading, Report } from 'notiflix';
 import Button from '../components/Ul/Button/Button';
 import { Link } from 'react-router-dom';
-import { useGetPostsQuery } from '../features/posts/postSlice';
+import { useGetPostsQuery, selectPostIds } from '../features/posts/postSlice';
 
 const Posts = () => {
   const { isLoading, isSuccess, isError, error } = useGetPostsQuery(); //have data byt we use orderedPostIds
@@ -24,12 +23,12 @@ const Posts = () => {
 
   const orderedPostIds = useSelector(selectPostIds);
   /*console.log(orderedPostIds);[3, 5, 2]
-   because in here we take data from (providesTags ["Post"] cache) (postSlices.js 21)*/
+   because in here we take data from selectPostIds === ids: (3) [3, 5, 2])*/
 
   const [searchValue, setSearchValue] = useState('');
   const sortPosts = useSort(orderedPostIds, searchValue);
 
-  if (sortPosts.length === 0) {
+  if (orderedPostIds.length === 0) {
     return (
       <section className="section posts">
         <div className="container">
@@ -53,12 +52,22 @@ const Posts = () => {
         <Search setSearchValue={setSearchValue} />
         {isLoading && Loading.hourglass(' Loading Items...')}
         {error && (Report.failure('Error', `${error}`), Loading.remove())}
-        {isSuccess &&
+
+        {!sortPosts ? (
+          <div
+            className="container text-center"
+            style={{ marginTop: '100px', color: 'red' }}
+          >
+            <h1>Post Not Found</h1>
+          </div>
+        ) : (
+          isSuccess &&
           !isError &&
           (Loading.remove(500),
           sortPosts.map(postIds => (
             <PostCard postIds={postIds.id} key={postIds.id} />
-          )))}
+          )))
+        )}
       </div>
     </section>
   );

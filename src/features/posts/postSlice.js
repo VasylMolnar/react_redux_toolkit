@@ -30,6 +30,16 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       },
     }),
 
+    getPostsByUserId: builder.query({
+      query: id => `/posts/?userId=${id}`,
+      transformResponse: responseData => {
+        return postsAdapter.setAll(initialState, responseData);
+      },
+      providesTags: (result, error, arg) => {
+        return [...result.ids.map(id => ({ type: 'Post', id }))];
+      },
+    }),
+
     addPost: builder.mutation({
       query: initialPost => ({
         url: '/posts',
@@ -75,16 +85,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
     }),
 
-    getPostsByUserId: builder.query({
-      query: id => `/posts/?userId=${id}`,
-      transformResponse: responseData => {
-        return postsAdapter.setAll(initialState, responseData);
-      },
-      providesTags: (result, error, arg) => [
-        ...result.ids.map(id => ({ type: 'Post', id })),
-      ],
-    }),
-
     addReaction: builder.mutation({
       query: ({ postId, reactions }) => ({
         url: `posts/${postId}`,
@@ -93,6 +93,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         // so that a user can't do the same reaction more than once
         body: { reactions },
       }),
+
       async onQueryStarted(
         { postId, reactions },
         { dispatch, queryFulfilled }
