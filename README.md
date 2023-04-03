@@ -3,11 +3,11 @@
 
  2: Client - Server: 
  
-     2.1 Redux Reducers (createEntityAdapter,createSelector) +  RTK Query        (save data to Redux)
+     2.1 Redux Reducers(fn) (createEntityAdapter,createSelector) +  RTK Query        (save data to Redux)
 
-     2.2 Redux Reducers (createEntityAdapter,createSelector) + createAsyncThunk  (save data to Redux)
+     2.2 Redux Reducers(fn) (createEntityAdapter,createSelector) + createAsyncThunk  (save data to Redux)
 
-     2.3 RTK Query (createEntityAdapter,createSelector) without Redux Reducers   (save data to Adapter)
+     2.3 RTK Query (createEntityAdapter,createSelector) without Redux Reducers(fn)   (save data to Adapter)
   
  3: Server: RTK Query
 
