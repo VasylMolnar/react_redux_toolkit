@@ -1,12 +1,13 @@
-#Redux 
-1: Client:basic Redux (createEntityAdapter,createSelector)
+#Redux :
 
-2: Client - Server: 
+# 1: Client:basic Redux (createEntityAdapter,createSelector)
+
+# 2: Client - Server: 
   2.1 Redux Reducers (createEntityAdapter,createSelector) +  RTK Query        (save data to Redux)
   2.2 Redux Reducers (createEntityAdapter,createSelector) + createAsyncThunk  (save data to Redux)
   2.3 RTK Query (createEntityAdapter,createSelector) without Redux Reducers   (save data to Adapter)
   
-3: Server: RTK Query
+# 3: Server: RTK Query
 
 
 # Getting Started with Create React App
