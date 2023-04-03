@@ -2,6 +2,7 @@
  1: Client:basic Redux (createEntityAdapter,createSelector)
 
  2: Client - Server: 
+ 
      2.1 Redux Reducers (createEntityAdapter,createSelector) +  RTK Query        (save data to Redux)
 
      2.2 Redux Reducers (createEntityAdapter,createSelector) + createAsyncThunk  (save data to Redux)
