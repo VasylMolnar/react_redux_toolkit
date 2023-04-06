@@ -3,12 +3,13 @@
 
  2: Client - Server: 
  
-     2.1 Redux Reducers(fn) (createEntityAdapter,createSelector) +  RTK Query        (save data to Redux)
+     2.1 Redux Reducers(fn) (createEntityAdapter,createSelector) +  RTK Query        (save data to Redux + (createEntityAdapter,createSelector))
      Progect:TravelAgency
 
-     2.2 Redux Reducers(fn) (createEntityAdapter,createSelector) + createAsyncThunk  (save data to Redux)
+     2.2 Redux Reducers(fn) (createEntityAdapter,createSelector) + createAsyncThunk  (save data to Redux + (createEntityAdapter,createSelector)) 
      branches:2.2
 
+     //in this we cant use Reducers (fn) because (save data to Adapter)
      2.3 RTK Query (createEntityAdapter,createSelector) without Redux Reducers(fn)   (save data to Adapter)
      branches:2.4
   
