@@ -15,6 +15,10 @@
   
  3: Server: RTK Query
 
+if we use axios (it is harder to work with errors -> here errors exist only in the field Action.error)
+
+if we use RTQ (it is easier to work with errors -> here errors exist in the field Action.error AND IN Action.payload -> and our JOSN {message:""})
+
 
 # Getting Started with Create React App
 
